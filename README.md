@@ -40,7 +40,7 @@ You can install the library from source using Poetry. Run the following command 
 * **Alexandr Pakhomov** - *Review* - [TVK-dev](https://github.com/TVK-dev)
 * **Vladimir Sotskov** - *Project vision*
 * **Konstantin Anokhin** - *Project vision*
-* **Mikhail Krivonosov** - *Project vision* - [mike_live](https://github.com/mike_live)
+* **Mikhail Krivonosov** - *Project vision* - [mike_live](https://github.com/mike-live)
 * **Mikhail Ivanchenko** - *Project vision*
 
 # References
