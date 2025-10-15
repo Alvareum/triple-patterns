@@ -6,3 +6,5 @@ src/__pycache__/
 jupyter_notebooks/__pycache__/
 
 src/triple_patterns/__pycache__/
+
+notebooks/__pycache__/

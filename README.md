@@ -1,22 +1,32 @@
 # Triples in dynamic networks  
 ### An algorithm searching for triple patterns in dynamic networks  
-This repository contains three modules:
+### This repository contains three modules:
 ### 1. Graph Randomization  
-This module generates random graphs based on calcium activity data.  
+This module generates random graphs based on calcium activity data. Here we consider 2 methods based on a randomized sequence of calcium events obtained from experimental data:  
+1) shuffling spikes  
+2) dynamic shift of spikes   
+
+![random_graphs](./pictures/graph_randomization_cut2.svg)  
+
+ Example of code is listed in [`1_graph_randomization.ipynb`](notebooks/1_graph_randomization.ipynb)  
 ### 2. Triple Calculation  
 This module performs triple search on a graph and retrieves information associated with behavioral markup.  
+Here, we consider only patterns for which exactly two edges in the triple were active while the third was absent.  
+
+<img src="./pictures/triple_configuration.png" width="100"> [[1]](#1)
+
+Here are examples of found triples in biological data.
+
+<img src="./pictures/two_triples_with_label.svg" width="600">  
+
+Example of code is listed in [`2_triple_calc.ipynb`](notebooks/2_triple_calc.ipynb)  
 ### 3. Chi-square Calculation  
 This module performs a statistical evaluation of the significance of triple activity in relation to behavioral markup.  
+Example of code is listed in [`3_chi2_calc.ipynb`](notebooks/3_chi2_calc.ipynb)  
 
 # Installation 
 You can install the library from source using Poetry. Run the following command in the root directory of the project:  
 `poetry install`
-
-# Usage  
-To verify the library's functionality, you can run the following Jupyter notebooks::  
-1. `graph_randomization.ipynb`  
-2. `triple_calc.ipynb`  
-3. `chi2_calc.ipynb`  
 
 # Dependencies  
 - [Pandas](https://github.com/pandas-dev/pandas)  
@@ -24,3 +34,19 @@ To verify the library's functionality, you can run the following Jupyter noteboo
 - [Scipy](https://scipy.org/)  
 - [Numba](https://numba.pydata.org)  
 - [Statsmodels](https://www.statsmodels.org/)
+
+# Authors
+* **Alena Varekhina**  - [alvareum](https://github.com/alvareum)
+* **Alexandr Pakhomov** - [TVK-dev](https://github.com/TVK-dev)
+* **Vladimir Sotskov**
+* **Konstantin Anokhin**
+* **Mikhail Krivonosov** - [mike_live](https://github.com/mike_live)
+* **Mikhail Ivanchenko**
+
+# References
+
+<a id="1">[1]</a> 
+Varekhina A.V., Ivanchenko M.V., Sotskov V.P, Krivonosov M.I., Anokhin K.V. 
+Identification and analysis of active neural cell ensembles associated with mice behavioral patterns. 
+In: Proceedings of the 14th BGRS/SB, 2024; Novosibirsk. August 5-10 2024. P. 1854 – 1856. 
+https://doi.org/10.18699/bgrs2024-10-02
