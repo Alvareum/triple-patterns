@@ -1,6 +1,9 @@
 # Triples in dynamic networks  
-### An algorithm searching for triple patterns in dynamic networks  
-### This repository contains three modules:
+
+An algorithm searching for triple patterns in dynamic networks.  
+
+## Pipeline
+
 ### 1. Graph Randomization  
 This module generates random graphs based on calcium activity data. Here we consider 2 methods based on a randomized sequence of calcium events obtained from experimental data:  
 1) shuffling spikes  
@@ -24,18 +27,18 @@ Example of code is listed in [`2_triple_calc.ipynb`](notebooks/2_triple_calc.ipy
 This module performs a statistical evaluation of the significance of triple activity in relation to behavioral markup.  
 Example of code is listed in [`3_chi2_calc.ipynb`](notebooks/3_chi2_calc.ipynb)  
 
-# Installation 
+## Installation 
 You can install the library from source using Poetry. Run the following command in the root directory of the project:  
 `poetry install`
 
-# Dependencies  
+## Dependencies  
 - [Pandas](https://github.com/pandas-dev/pandas)  
 - [Numpy](https://numpy.org/)  
 - [Scipy](https://scipy.org/)  
 - [Numba](https://numba.pydata.org)  
 - [Statsmodels](https://www.statsmodels.org/)
 
-# Authors
+## Authors
 * **Alena Varekhina**  - *Implementation* - [alvareum](https://github.com/alvareum)
 * **Alexandr Pakhomov** - *Review* - [TVK-dev](https://github.com/TVK-dev)
 * **Vladimir Sotskov** - *Project vision*
@@ -43,7 +46,7 @@ You can install the library from source using Poetry. Run the following command 
 * **Mikhail Krivonosov** - *Project vision* - [mike_live](https://github.com/mike-live)
 * **Mikhail Ivanchenko** - *Project vision*
 
-# References
+## References
 
 <a id="1">[1]</a> 
 Varekhina A.V., Ivanchenko M.V., Sotskov V.P, Krivonosov M.I., Anokhin K.V. 
