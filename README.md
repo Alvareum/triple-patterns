@@ -11,9 +11,9 @@ This module generates random graphs based on calcium activity data. Here we cons
  Example of code is listed in [`1_graph_randomization.ipynb`](notebooks/1_graph_randomization.ipynb)  
 ### 2. Triple Calculation  
 This module performs triple search on a graph and retrieves information associated with behavioral markup.  
-Here, we consider only patterns for which exactly two edges in the triple were active while the third was absent.  
+Here, we consider only patterns for which exactly two edges in the triple were active while the third was absent [[1]](#1).  
 
-<img src="./images/triple_configuration.png" width="100"> [[1]](#1)
+<img src="./images/triple_configuration.png" width="100"> 
 
 Here are examples of found triples in biological data.
 
@@ -36,12 +36,12 @@ You can install the library from source using Poetry. Run the following command 
 - [Statsmodels](https://www.statsmodels.org/)
 
 # Authors
-* **Alena Varekhina**  - [alvareum](https://github.com/alvareum)
-* **Alexandr Pakhomov** - [TVK-dev](https://github.com/TVK-dev)
-* **Vladimir Sotskov**
-* **Konstantin Anokhin**
-* **Mikhail Krivonosov** - [mike_live](https://github.com/mike_live)
-* **Mikhail Ivanchenko**
+* **Alena Varekhina**  - *Implementation* - [alvareum](https://github.com/alvareum)
+* **Alexandr Pakhomov** - *Review* - [TVK-dev](https://github.com/TVK-dev)
+* **Vladimir Sotskov** - *Project vision*
+* **Konstantin Anokhin** - *Project vision*
+* **Mikhail Krivonosov** - *Project vision* - [mike_live](https://github.com/mike_live)
+* **Mikhail Ivanchenko** - *Project vision*
 
 # References
 
