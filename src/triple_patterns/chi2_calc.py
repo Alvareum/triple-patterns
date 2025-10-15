@@ -1,55 +1,52 @@
 import numpy as np
 import numpy.typing as npt
+from numba import jit
 import pandas as pd
 from typing import Tuple
-from scipy_stats_vectorized import chi2_contingency_vectorized
+from .scipy_stats_vectorized import chi2_contingency_vectorized
 from statsmodels.stats.multitest import multipletests
 
 
 def get_label_intervals(
     dict_label_times: dict, n_frames: int
 ) -> dict[int, Tuple[int, list[int]]]:
-    dict_label_arr = {}
-    for label, times in dict_label_times.items():
+    n_intervals = []
+    for times in dict_label_times.values():
         if len(times) < n_frames:
             tmp_arr = np.zeros(len(times))
         else:
             tmp_arr = np.zeros(n_frames)
+
         tmp_arr[times] = 1
         list_intervals = list(np.argwhere(np.diff(tmp_arr)).flatten())
-        bool_even = len(list_intervals) % 2 == 0
+
+        n_elements = len(list_intervals)
+        bool_even = n_elements % 2 == 0
         bool_non_zero = tmp_arr[0] != 0 and tmp_arr[-1] != 0
-        if bool_even and bool_non_zero:
-            n_ints = (len(list_intervals) + 2) // 2
-            list_intervals.insert(0, 0)
-            list_intervals.append(n_frames - 1)
-        elif bool_even:
-            n_ints = len(list_intervals) // 2
-        else:
-            n_ints = (len(list_intervals) + 1) // 2
-            if tmp_arr[0] != 0:
-                list_intervals.insert(0, 0)
-            else:
-                list_intervals.append(n_frames - 1)
-        dict_label_arr[label] = (n_ints, list_intervals)
-    return dict_label_arr
+        n_ints = get_intervals(n_elements, bool_even, bool_non_zero)
+        n_intervals.append(n_ints)
+    return n_intervals
+
+
+def get_intervals(n_elements: int, bool_even: bool, bool_non_zero: bool) -> int:
+    if bool_even and bool_non_zero:
+        n_ints = (n_elements + 2) // 2
+    elif bool_even:
+        n_ints = n_elements // 2
+    else:
+        n_ints = (n_elements + 1) // 2
+    return n_ints
 
 
 def get_freq_tables_triples(
     intensity_array: npt.ArrayLike,
     triples_array: npt.ArrayLike,
     dict_label_intensity: dict[int, npt.ArrayLike],
-    labels: list[int],
     list_ints: list[int],
 ) -> dict[Tuple, npt.ArrayLike]:
-    """Посчитать количество интервалов, когда горело то или иное ребро во время определенного лейбла
-    только для uint8!
-    intensity_array - двумерный массив uint8, где строки - интенсивность горения тройки, столбцы - время
-    triples_array - массив с тройками
-    dict_label_intensity - словарь с интенсивностями горения лейблов в uint8
-    labels - список лейблов цифрами
-    list_ints - число промежутков, когда горел какой-либо лейбл"""
+    
     dict_freq_tables = {}
+    labels = [key for key in dict_label_intensity.keys()]
     n_labels = len(labels)
     n_edges = len(triples_array)
     for i in range(n_edges):
@@ -62,14 +59,10 @@ def get_freq_tables_triples(
             res_intensity = np.unpackbits(label_intensity & intensity_array[i, :])
             res_ints = np.where(np.diff(res_intensity))[0]
             if len(res_ints) != 0:
-                bool_even = len(res_ints) % 2 == 0
+                n_elements = len(res_ints)
+                bool_even = n_elements % 2 == 0
                 bool_non_zero = res_intensity[0] != 0 and res_intensity[-1] != 0
-                if bool_even and bool_non_zero:
-                    n_ints = (len(res_ints) + 2) // 2
-                elif bool_even:
-                    n_ints = len(res_ints) // 2
-                else:
-                    n_ints = (len(res_ints) + 1) // 2
+                n_ints = get_intervals(n_elements, bool_even, bool_non_zero)
             else:
                 n_ints = 0
             freq_arr[0, idx] = n_ints
@@ -104,9 +97,7 @@ def popcount_precalc(nbits: int = 8, dtype: npt.DTypeLike = np.uint32) -> npt.Ar
 def get_counts_and_sum_packed(
     packed_intensity: npt.ArrayLike, popcnt: npt.ArrayLike
 ) -> Tuple[int, int]:
-    """
-    Numba version of get_counts_2 with bits packed values.
-    """
+
     start_cnt = 0
     sum_cnt = 0
     prv = 0

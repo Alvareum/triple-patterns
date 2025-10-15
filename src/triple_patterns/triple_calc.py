@@ -157,14 +157,20 @@ def find_triples_packed(
 
 
 def get_triple_edges(
-    triples_array: npt.ArrayLike, triple_data: npt.ArrayLike, list_label_times: list
+    triple_data: npt.ArrayLike,
+    dict_label_intensity: dict,
+    is_markup_packed: bool = True,
 ) -> npt.ArrayLike:
-    n_triples = len(triples_array)
+    if is_markup_packed:
+        list_label_times = [value for value in dict_label_intensity.values()]
+    elif not is_markup_packed:
+        list_label_times = [
+            np.packbits(value) for value in dict_label_intensity.values()
+        ]
+    n_triples = len(triple_data)
     n_labels = len(list_label_times)
     list_triple_info = np.zeros((n_triples, n_labels))
     for i in range(n_triples):
-        if i % 100000 == 0:
-            print(i, triples_array[i])
         list_dur = []
         for label in list_label_times:
             res_array = triple_data[i, :] & label
