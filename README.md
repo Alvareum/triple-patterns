@@ -6,18 +6,18 @@ This module generates random graphs based on calcium activity data. Here we cons
 1) shuffling spikes  
 2) dynamic shift of spikes   
 
-![random_graphs](./pictures/graph_randomization_cut2.svg)  
+![random_graphs](./images/graph_randomization_cut2.svg)  
 
  Example of code is listed in [`1_graph_randomization.ipynb`](notebooks/1_graph_randomization.ipynb)  
 ### 2. Triple Calculation  
 This module performs triple search on a graph and retrieves information associated with behavioral markup.  
 Here, we consider only patterns for which exactly two edges in the triple were active while the third was absent.  
 
-<img src="./pictures/triple_configuration.png" width="100"> [[1]](#1)
+<img src="./images/triple_configuration.png" width="100"> [[1]](#1)
 
 Here are examples of found triples in biological data.
 
-<img src="./pictures/two_triples_with_label.svg" width="600">  
+<img src="./images/two_triples_with_label.svg" width="600">  
 
 Example of code is listed in [`2_triple_calc.ipynb`](notebooks/2_triple_calc.ipynb)  
 ### 3. Chi-square Calculation  
